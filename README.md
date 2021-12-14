@@ -1,509 +1,319 @@
 # 1-3 知识点
 
- ### ## 1.javac
+*   ## 1-3 知识点
 
-javac 把java 程序编译成字节码，java 运行javac产生的.class
+    ## 1.javac
 
-* 在命令行使用javac之后，如果源代码有package会报无法加载主类的错误
-* javac执行成功后会生成.class文件，之后通过java执行时不加.class后缀
+    javac 把java 程序编译成字节码，java 运行javac产生的.class
 
-正例 java HelloJava
+    * 在命令行使用javac之后，如果源代码有package会报无法加载主类的错误
+    * javac执行成功后会生成.class文件，之后通过java执行时不加.class后缀
 
-反例：java HelloJava.class
+    正例 java HelloJava
 
-###  main方法须声明为public,必须为静态
+    反例：java HelloJava.class
 
-## 2.基本数据类型
+    ### main方法须声明为public,必须为静态
 
-8种
+    ## 2.基本数据类型（8种）
 
-### 整型
+    ### 整型
 
-* long 8
+    | 名称  | long（L） | int | short | byte |
+    | --- | ------- | --- | ----- | ---- |
+    | 字节数 | 8       | 4   | 2     | 1    |
 
-* int 4
-* short 2
-* byte 1
+    十六进制有前缀0x、八进制有前缀0
 
-长整型有后缀L        4325352L
+    | 名称  | float  | double       |
+    | --- | ------ | ------------ |
+    | 字节数 | 4 有后缀F | 8 默认为无后缀的浮点数 |
 
-十六进制有前缀0x
+    ### char
 
-八进制有前缀0
+    单个字符
 
-### 浮点
+    ### boolean
 
-float 4   有后缀F
+    ### 常量
 
-double 8  默认为无后缀的浮点数
+    * java 利用关键字final声明常量
+    * 例如
 
-### char
+    ```
+    final int AGE = 30 ;
+    ```
 
-单个字符
+    * 关键字final表示这个变量只能被赋值一次，一旦被赋值就不能更改了，习惯上常量名使用大写
+    * java中经常希望在一个类的多个方法中使用某个常量，通常讲这些常量称为类常量，例
 
-### boolean
+    ```
+    public static final double CCC = 3.3 
+    ```
 
-### 常量
+    * 类常量的定义位于main方法的外部，因此，在同一个类的其他方法也可以使用，而且如果被声明为public,其他类也可以使用
 
-* java 利用关键字final生命常量
+    ### 位运算
 
-* 例如
+    | 名称 | &                                    | \|  | ^  | \~ | >> | << | >>>    |
+    | -- | ------------------------------------ | --- | -- | -- | -- | -- | ------ |
+    | 解释 | 与运算可以利用2的幂进行位屏蔽，例如n&8可以屏蔽除了右数第四位以外的位 | 或运算 | 异或 | 非  | 右移 | 左移 | 高位用0填充 |
 
-```java
-final int AGE = 30 ;
-```
+    ### 数学函数
 
-* 关键字final表示这个变量只能被赋值一次，一旦被赋值就不能更改了，习惯上常量名使用大写
-* java中经常希望在一个类的多个方法中使用某个常量，通常讲这些常量称为类常量，例
+    Math类中的方法
 
-```java
-public static final double CCC = 3.3 
-```
+    | 方法 | sqrt() | pow(x,a) | 三角函数           | 指数函数  | 对数函数  | PI |
+    | -- | ------ | -------- | -------------- | ----- | ----- | -- |
+    |    | 平方根    | x 的a次幂   | sin cos tan... | exp（） | log() | π  |
 
-* 类常量的定义位于main方法的外部，因此，在同一个类的其他方法也可以使用，而且如果被声明为public,其他类也可以使用
+    ### 类型转换
 
-### 位运算
+    * double + 其他 = double
+    * 否则 float + 其他 = float
+    * 否则 long + 其他 = long
+    * 否则两者都转为int
 
-* 与运算 & ，可以利用2的幂进行位屏蔽，例如n&8可以屏蔽除了右数第四位以外的位
-* 或运算 |
-* 异或 ^
-* 非 ~
-* 右移 >>
-* 左移 <<
-* 》》》高位用0填充
+    ### 强制类型转换
 
-### 数学函数
+    强制将一个数值转换为另一种，又超出了目标类型的表示范围就会截断为一个完全不同的制如 （byte ）300 = 40
 
-Math类中的方法
+    ### 优先级
 
-* sqrt()平方根
-* pow(x,a) x 的a次幂
-* 三角函数 sin cos tan...
-* 指数函数exp（）
-* 对数函数 log()
-* PI  E圆周率和自然常数近似值
+    \+=右优先
 
-### 类型转换
+    a+=b+=c = a+=(b+=c)
 
-* double + 其他 = double
-* 否则 float + 其他 = float
-* 否则 long + 其他 = long
-* 否则两者都转为int
+    ### 枚举类型
 
-### 强制类型转换
+    有时候，变量的取值只在一个有限的集合内，例如披萨只有大中小三种尺寸，如果使用普通变量，可能会保存一个错误的值，这时可以使用枚举类型
 
-强制将一个数值转换为另一种，又超出了目标类型的表示范围就会截断为一个完全不同的制如  （byte ）300 = 40
+    枚举类型包含有限个命名的值
 
-### 优先级
+    例如：
 
-+=右优先
+    ```
+    enum Size{SMALL,MEDIUM,LARGE};//现在可以声明一个这种变量Size s = Size.MEDIUM;
+    ```
 
-a+=b+=c  = a+=(b+=c)
+    ### 数组
 
-### 枚举类型
+    #### 定义
 
-有时候，变量的取值只在一个有限的集合内，例如披萨只有大中小三种尺寸，如果使用普通变量，可能会保存一个错误的值，这时可以使用枚举类型
+    两种方法
 
-枚举类型包含有限个命名的值
+    * int\[]a
+    * int a \[]
 
-例如：
+    #### 初始化
 
-```java
-enum Size{SMALL,MEDIUM,LARGE};
-//现在可以声明一个这种变量
-Size s = Size.MEDIUM;
-```
+    * int \[] a = {1};
 
-### 数组
+    #### 匿名数组
 
-#### 定义
+    new int\[]{1}
 
-两种方法
+    #### 数组拷贝
 
-* int[]a
-* int a []
+    int \[] b =Arrays.copyOf(a,a.length)
 
-#### 初始化
+    ### 命令行参数
 
-* int [] a = {1};
+    main函数有一个字符串数组的形参
 
-#### 匿名数组
+    在命令行运行程序时可以传参
 
-new int[]{1}
+    java Test -hello world
 
-#### 数组拷贝
+    ### 权限修饰符
 
-int  [] b =Arrays.copyOf(a,a.length) 
+    ### private
 
-### 命令行参数
+    * 权限修饰符
+    * 可以修饰成员（变量和方法）
+    * 保护成员不被别的类使用
 
-main函数有一个字符串数组的形参
+    如果想让别的类访问，可以声明get 和set方法，方法用public修饰
 
-在命令行运行程序时可以传参
+    ![img](https://2468732199.gitbook.io/\~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F2O7gJns9kXvSQmqxeoqU%2Fuploads%2FSl6lm6zhR4MSfLq6RzVX%2Fimage.png?alt=media\&token=ad65f958-5fcf-4e80-a177-28ca603a7137)
 
-java Test -hello world
+    ### 跨平台原理
 
+    平台指操作系统平台 如Windows Macos等
 
+    通过JVM（Java Virtual Machine）实现
 
+    一个平台对应一种JVM
 
+    ### 标识符命名约定
 
- 
+    #### 小驼峰（方法变量）
 
-1-3 知识点
+    第一个单词首字母小写，其余大写
 
-### 1.javac
+    #### 大驼峰（类）
 
-javac 把java 程序编译成字节码，java 运行javac产生的.class
+    所有单词首字母大写
 
-- 
+    ### 数组初始化
 
-  在命令行使用javac之后，如果源代码有package会报无法加载主类的错误
+    #### 动态初始化
 
-- 
+    只指定初始长度，系统分配初始值
 
-  javac执行成功后会生成.class文件，之后通过java执行时不加.class后缀
+    int \[] arr = new int \[5];
 
-正例 java HelloJava
+    \[] 说明只是一个数组
 
-反例：java HelloJava.class
+    new :为数组声明把内存
 
-### main方法须声明为public,必须为静态
+    #### 静态初始化
 
-## 2.基本数据类型
+    指定数组元素，系统决定长度
 
-8种
+    int　［］　arr = new int \[]{1,2,3}
 
-### 整型
+    简化
 
-- 
+    int \[] arr = {1,2,3}
 
-  long 8
+    ### 方法
 
-- 
+    #### 注意事项
 
-  int 4
+    * 不能嵌套定义
+    * void可以不写return ,也可以写return ,但后面不加数据
 
-- 
+    ### 方法重载
 
-  short 2
+    同一个类中定义的多个方法满足以下条件
 
-- 
+    * 同一个类中
+    * 方法名相同
+    * 参数不同（数量或类型不同）
 
-  byte 1
+    出现原因：需要对不同数据类型的元素实现相同的功能
 
-长整型有后缀L 4325352L
+    以求和函数为例
 
-十六进制有前缀0x
+    * 对两个整数求和 int sum(int a,int b){return a+b}
+    *   对两个浮点数求和
 
-八进制有前缀0
+        float sum(float a,float b){return a+b}
+    *   对三个整数求和
 
-### 浮点
+        int sum(int a,int b，int c){return a+b+c}
 
-float 4 有后缀F
+    #### 调用方法
 
-double 8 默认为无后缀的浮点数
+    int result = sum(10,20)
 
-### char
+    float result2 = sum(1.0,2.0)
 
-单个字符
+    int result3 = sum(10,20,30)
 
-### boolean
+    ### Debug
 
-### 常量
+    查看代码执行流程
 
-- 
+    #### 如
 
-  java 利用关键字final生命常量
+    ### 封装
 
-- 
+    **封装**：面向对象三大特征之一（封装 继承 多态）
 
-  例如
+    是面向对象编程语言对客观世界的模拟
 
-1
+    * 封装原则
 
-final int AGE = 30 ;
+    将类的某些信息隐藏在类的内部，不允许外部程序直接访问，而是通过该类提供的方法来实现对隐藏i洗脑洗的访问
 
+    * 好处
 
+    通过方法来控制变量的操作，提高了代码的安全性
 
-Copied!
+    把代码用方法封装，提高的代码的复用性
 
-- 
+    ### 构造方法
 
-  关键字final表示这个变量只能被赋值一次，一旦被赋值就不能更改了，习惯上常量名使用大写
+    一种特殊的方法，作用是创建对象
 
-- 
+    * 默认无参构造
 
-  java中经常希望在一个类的多个方法中使用某个常量，通常讲这些常量称为类常量，例
+    Student s = new **Student()**;
 
-1
+    * 有参数的构造方法
 
-public static final double CCC = 3.3 
+    ## 关键字
 
+    ### static
 
+    1. 静态变量
+    2. **静态变量：又称为类变量，也就是说这个变量属于类的，类所有的实例都共享静态变量，可以直接通过类名来访问它。静态变量在内存中只存在一份。**
 
-Copied!
+    实例;
 
-- 
+    ```
+    public class Test{     private static int i=1;    public int getNext(){          return i++;    }     public static void main(String [] args){         Test test=new Test();         Test testObject=new Test();         test.getNext();         testObject.getNext();         System.out.println(testObject.getNext());     } }
+    ```
 
-  类常量的定义位于main方法的外部，因此，在同一个类的其他方法也可以使用，而且如果被声明为public,其他类也可以使用
+    这段代码输出结果是3
 
-### 位运算
+    如果i没被static修饰，那么调用两次test的getnext方法，i的值应该是2
 
-- 
+    可由于i是类变量，所以objtest的一次调用也要算进去
 
-  与运算 & ，可以利用2的幂进行位屏蔽，例如n&8可以屏蔽除了右数第四位以外的位
+    该题主要考察的是static属性和i++操作。
 
-- 
+    因为i是static的，是类属性，所以不管有多少对象，都共用的一个变量。这里getNext()方法被调用了三次，所以进行了三次i++操作。
 
-  或运算 |
+    但是由于getNext()操作的返回是：return i++; i++是先返回，后++，所以在println是，已经返回了i(此时i为3)，再进行自增的，所以这里结果为3
 
-- 
+    * 实例变量：每创建一个实例就会产生一个实例变量，它与该实例同生共死。
+    *   静态方法
 
-  异或 ^
+        静态方法在类加载的时候就存在了，它不依赖于任何实例。所以静态方法必须有实现，也就是说它不能是抽象方法。
 
-- 
+    ### final
 
-  非 ~
+    1.  类
 
-- 
+        当final修饰一个类时，表明其为最终类，它不能被继承，并且类中所有的属性和方法都默认是final类型，如String，Integer等包装类均为final类。
+    2. 方法 被final修饰的方法不可被重写。它可以防止任何继承类修改方法的意义和实现，而且，使用 final修饰方法的执行效率一般高于普通方法
+    3.  变量
 
-  右移 >>
+        使用final修饰的变量称为常量（大写字母表示），只能被赋值一次，且赋值之后无法改变，这里的变量又可以分为基本类型变量和引用类型变量，final修饰基本类型变量时，变量的值不可改变；修饰引用变量时，变量指向的对象地址不可改变。
+    4.
 
-- 
+    ### this
 
-  左移 <<
+    * 修饰成员变量
+    * 不带this指代形参
+    * 解决局部变量隐藏成员变量的问题
+    * 方法被哪个对象调用，this就指代那个变量
 
-- 
+    ### Transient
 
-  》》》高位用0填充
+    java 的transient关键字的作用是需要实现Serilizable接口，将不需要序列化的属性前添加关键字transient，序列化对象的时候，这个属性就不会序列化到指定的目的地中。
 
-### 数学函数
+    ## HttpServlet容器响应Web客户请求流程如下：
 
-Math类中的方法
+    1）Web客户向Servlet容器发出Http请求；
 
-- 
+    2）Servlet容器解析Web客户的Http请求；
 
-  sqrt()平方根
+    3）Servlet容器创建一个HttpRequest对象，在这个对象中封装Http请求信息；
 
-- 
+    4）Servlet容器创建一个HttpResponse对象；
 
-  pow(x,a) x 的a次幂
+    5）Servlet容器调用HttpServlet的service方法，这个方法中会根据request的Method来判断具体是执行doGet还是doPost，把HttpRequest和HttpResponse对象作为service方法的参数传给HttpServlet对象；
 
-- 
+    6）HttpServlet调用HttpRequest的有关方法，获取HTTP请求信息；
 
-  三角函数 sin cos tan...
+    7）HttpServlet调用HttpResponse的有关方法，生成响应数据；
 
-- 
+    8）Servlet容器把HttpServlet的响应结果传给Web客户。
 
-  指数函数exp（）
+    doGet() 或 doPost() 是创建HttpServlet时需要覆盖的方法.
 
-- 
-
-  对数函数 log()
-
-- 
-
-  PI E圆周率和自然常数近似值
-
-### 类型转换
-
-- 
-
-  double + 其他 = double
-
-- 
-
-  否则 float + 其他 = float
-
-- 
-
-  否则 long + 其他 = long
-
-- 
-
-  否则两者都转为int
-
-### 强制类型转换
-
-强制将一个数值转换为另一种，又超出了目标类型的表示范围就会截断为一个完全不同的制如 （byte ）300 = 40
-
-### 优先级
-
-+=右优先
-
-a+=b+=c = a+=(b+=c)
-
-### 枚举类型
-
-有时候，变量的取值只在一个有限的集合内，例如披萨只有大中小三种尺寸，如果使用普通变量，可能会保存一个错误的值，这时可以使用枚举类型
-
-枚举类型包含有限个命名的值
-
-例如：
-
-1
-
-enum Size{SMALL,MEDIUM,LARGE};//现在可以声明一个这种变量Size s = Size.MEDIUM;
-
-
-
-Copied!
-
-### 数组
-
-**定义**
-
-两种方法
-
-- 
-
-  int[]a
-
-- 
-
-  int a []
-
-**初始化**
-
-- 
-
-  int [] a = {1};
-
-**匿名数组**
-
-new int[]{1}
-
-**数组拷贝**
-
-int [] b =Arrays.copyOf(a,a.length)
-
-### 命令行参数
-
-main函数有一个字符串数组的形参
-
-在命令行运行程序时可以传参
-
-java Test -hello world
-
-
-
-## 权限修饰符
-
-作用域
-
-当前类
-
-同一包
-
-其他包的子孙类
-
-其他包的类
-
-public
-
-√
-
-√
-
-√
-
-√
-
-protected
-
-√
-
-√
-
-√
-
-×
-
-friendly
-
-√
-
-√
-
-×
-
-×
-
-private
-
-√
-
-×
-
-×
-
-×
-
-
-
-
-
-![img](https://2468732199.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F2O7gJns9kXvSQmqxeoqU%2Fuploads%2FSl6lm6zhR4MSfLq6RzVX%2Fimage.png?alt=media&token=ad65f958-5fcf-4e80-a177-28ca603a7137)
-
-## 思路
-
-- 
-
-  中序遍历搜索二叉树，使用队列存放结点
-
-- 
-
-  取出队列中的结点，构建双向链表
-
-## 代码
-
-```JAVA
-/*
-// Definition for a Node.
-class Node {
-    public int val;
-    public Node left;
-    public Node right;
-
-    public Node() {}
-
-    public Node(int _val) {
-        val = _val;
-    }
-
-    public Node(int _val,Node _left,Node _right) {
-        val = _val;
-        left = _left;
-        right = _right;
-    }
-};
-*/
-class Solution {
-    public Node treeToDoublyList(Node root) {
-        if(root==null) return root;
-        Node pre = new Node(-1);
-        Node a = pre;
-        Queue <Node> q = new LinkedList<>();
-        InOrderTraverse(root,q);
-        for(Node n:q){
-            pre.right = n;
-            n.left = pre;
-            pre = n;
-        }
-        pre.right = a.right;
-        a.right.left = pre;
-        return a.right;
-    }
-
-    void InOrderTraverse(Node root,Queue<Node> q){
-        if(root!=null){
-            InOrderTraverse(root.left,q);
-            q.offer(root);
-            InOrderTraverse(root.right,q);
-        }
-    }
-
-    
-}
-```
-
+    \
