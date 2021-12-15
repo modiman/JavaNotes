@@ -1,2 +1,323 @@
+<<<<<<< HEAD
 # Java核心技术阅读笔记
+=======
+# 1-3 知识点
 
+*   ## 1-3 知识点
+
+    ## 1.javac
+
+    javac 把java 程序编译成字节码，java 运行javac产生的.class
+
+    * 在命令行使用javac之后，如果源代码有package会报无法加载主类的错误
+    * javac执行成功后会生成.class文件，之后通过java执行时不加.class后缀
+
+    正例 java HelloJava
+
+    反例：java HelloJava.class
+
+    ### main方法须声明为public,必须为静态
+
+    ## 2.基本数据类型（8种）
+
+    ### 整型
+
+    | 名称  | long（L） | int | short | byte |
+    | --- | ------- | --- | ----- | ---- |
+    | 字节数 | 8       | 4   | 2     | 1    |
+
+    十六进制有前缀0x、八进制有前缀0
+
+    | 名称  | float  | double       |
+    | --- | ------ | ------------ |
+    | 字节数 | 4 有后缀F | 8 默认为无后缀的浮点数 |
+
+    ### char
+
+    单个字符
+
+    ### boolean
+
+    ### 常量
+
+    * java 利用关键字final声明常量
+    * 例如
+
+    ```
+    final int AGE = 30 ;
+    ```
+
+    * 关键字final表示这个变量只能被赋值一次，一旦被赋值就不能更改了，习惯上常量名使用大写
+    * java中经常希望在一个类的多个方法中使用某个常量，通常讲这些常量称为类常量，例
+
+    ```
+    public static final double CCC = 3.3 
+    ```
+
+    * 类常量的定义位于main方法的外部，因此，在同一个类的其他方法也可以使用，而且如果被声明为public,其他类也可以使用
+
+    ### 位运算
+
+    | 名称 | &                                    | \|  | ^  | \~ | >> | << | >>>    |
+    | -- | ------------------------------------ | --- | -- | -- | -- | -- | ------ |
+    | 解释 | 与运算可以利用2的幂进行位屏蔽，例如n&8可以屏蔽除了右数第四位以外的位 | 或运算 | 异或 | 非  | 右移 | 左移 | 高位用0填充 |
+
+    ### 数学函数
+
+    Math类中的方法
+
+    | 方法 | sqrt() | pow(x,a) | 三角函数           | 指数函数  | 对数函数  | PI |
+    | -- | ------ | -------- | -------------- | ----- | ----- | -- |
+    |    | 平方根    | x 的a次幂   | sin cos tan... | exp（） | log() | π  |
+
+    ### 类型转换
+
+    * double + 其他 = double
+    * 否则 float + 其他 = float
+    * 否则 long + 其他 = long
+    * 否则两者都转为int
+
+    ### 强制类型转换
+
+    强制将一个数值转换为另一种，又超出了目标类型的表示范围就会截断为一个完全不同的制如 （byte ）300 = 40
+
+    ### 优先级
+
+    \+=右优先
+
+    a+=b+=c = a+=(b+=c)
+
+    ### 枚举类型
+
+    有时候，变量的取值只在一个有限的集合内，例如披萨只有大中小三种尺寸，如果使用普通变量，可能会保存一个错误的值，这时可以使用枚举类型
+
+    枚举类型包含有限个命名的值
+
+    例如：
+
+    ```
+    enum Size{SMALL,MEDIUM,LARGE};//现在可以声明一个这种变量Size s = Size.MEDIUM;
+    ```
+
+    ### 数组
+
+    #### 定义
+
+    两种方法
+
+    * int\[]a
+    * int a \[]
+
+    #### 初始化
+
+    * int \[] a = {1};
+
+    #### 匿名数组
+
+    new int\[]{1}
+
+    #### 数组拷贝
+
+    int \[] b =Arrays.copyOf(a,a.length)
+
+    ### 命令行参数
+
+    main函数有一个字符串数组的形参
+
+    在命令行运行程序时可以传参
+
+    java Test -hello world
+
+    ### 权限修饰符
+
+    ### private
+
+    * 权限修饰符
+    * 可以修饰成员（变量和方法）
+    * 保护成员不被别的类使用
+
+    如果想让别的类访问，可以声明get 和set方法，方法用public修饰
+
+    ![img](https://2468732199.gitbook.io/\~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F2O7gJns9kXvSQmqxeoqU%2Fuploads%2FSl6lm6zhR4MSfLq6RzVX%2Fimage.png?alt=media\&token=ad65f958-5fcf-4e80-a177-28ca603a7137)
+
+    ### 跨平台原理
+
+    平台指操作系统平台 如Windows Macos等
+
+    通过JVM（Java Virtual Machine）实现
+
+    一个平台对应一种JVM
+
+    ### 标识符命名约定
+
+    #### 小驼峰（方法变量）
+
+    第一个单词首字母小写，其余大写
+
+    #### 大驼峰（类）
+
+    所有单词首字母大写
+
+    ### 数组初始化
+
+    #### 动态初始化
+
+    只指定初始长度，系统分配初始值
+
+    int \[] arr = new int \[5];
+
+    \[] 说明只是一个数组
+
+    new :为数组声明把内存
+
+    #### 静态初始化
+
+    指定数组元素，系统决定长度
+
+    int　［］　arr = new int \[]{1,2,3}
+
+    简化
+
+    int \[] arr = {1,2,3}
+
+    ### 方法
+
+    #### 注意事项
+
+    * 不能嵌套定义
+    * void可以不写return ,也可以写return ,但后面不加数据
+
+    ### 方法重载
+
+    同一个类中定义的多个方法满足以下条件
+
+    * 同一个类中
+    * 方法名相同
+    * 参数不同（数量或类型不同）
+
+    出现原因：需要对不同数据类型的元素实现相同的功能
+
+    以求和函数为例
+
+    * 对两个整数求和 int sum(int a,int b){return a+b}
+    *   对两个浮点数求和
+
+        float sum(float a,float b){return a+b}
+    *   对三个整数求和
+
+        int sum(int a,int b，int c){return a+b+c}
+
+    #### 调用方法
+
+    int result = sum(10,20)
+
+    float result2 = sum(1.0,2.0)
+
+    int result3 = sum(10,20,30)
+
+    ### Debug
+
+    查看代码执行流程
+
+    #### 如
+
+    ### 封装
+
+    **封装**：面向对象三大特征之一（封装 继承 多态）
+
+    是面向对象编程语言对客观世界的模拟
+
+    * 封装原则
+
+    将类的某些信息隐藏在类的内部，不允许外部程序直接访问，而是通过该类提供的方法来实现对隐藏i洗脑洗的访问
+
+    * 好处
+
+    通过方法来控制变量的操作，提高了代码的安全性
+
+    把代码用方法封装，提高的代码的复用性
+
+    ### 构造方法
+
+    一种特殊的方法，作用是创建对象
+
+    * 默认无参构造
+
+    Student s = new **Student()**;
+
+    * 有参数的构造方法
+
+    ## 关键字
+
+    ### static
+
+    1. 静态变量
+    2. **静态变量：又称为类变量，也就是说这个变量属于类的，类所有的实例都共享静态变量，可以直接通过类名来访问它。静态变量在内存中只存在一份。**
+
+    实例;
+
+    ```
+    public class Test{     private static int i=1;    public int getNext(){          return i++;    }     public static void main(String [] args){         Test test=new Test();         Test testObject=new Test();         test.getNext();         testObject.getNext();         System.out.println(testObject.getNext());     } }
+    ```
+
+    这段代码输出结果是3
+
+    如果i没被static修饰，那么调用两次test的getnext方法，i的值应该是2
+
+    可由于i是类变量，所以objtest的一次调用也要算进去
+
+    该题主要考察的是static属性和i++操作。
+
+    因为i是static的，是类属性，所以不管有多少对象，都共用的一个变量。这里getNext()方法被调用了三次，所以进行了三次i++操作。
+
+    但是由于getNext()操作的返回是：return i++; i++是先返回，后++，所以在println是，已经返回了i(此时i为3)，再进行自增的，所以这里结果为3
+
+    * 实例变量：每创建一个实例就会产生一个实例变量，它与该实例同生共死。
+    *   静态方法
+
+        静态方法在类加载的时候就存在了，它不依赖于任何实例。所以静态方法必须有实现，也就是说它不能是抽象方法。
+
+    ### final
+
+    1.  类
+
+        当final修饰一个类时，表明其为最终类，它不能被继承，并且类中所有的属性和方法都默认是final类型，如String，Integer等包装类均为final类。
+    2. 方法 被final修饰的方法不可被重写。它可以防止任何继承类修改方法的意义和实现，而且，使用 final修饰方法的执行效率一般高于普通方法
+    3.  变量
+
+        使用final修饰的变量称为常量（大写字母表示），只能被赋值一次，且赋值之后无法改变，这里的变量又可以分为基本类型变量和引用类型变量，final修饰基本类型变量时，变量的值不可改变；修饰引用变量时，变量指向的对象地址不可改变。
+    4.
+
+    ### this
+
+    * 修饰成员变量
+    * 不带this指代形参
+    * 解决局部变量隐藏成员变量的问题
+    * 方法被哪个对象调用，this就指代那个变量
+
+    ### Transient
+
+    java 的transient关键字的作用是需要实现Serilizable接口，将不需要序列化的属性前添加关键字transient，序列化对象的时候，这个属性就不会序列化到指定的目的地中。
+
+    ## HttpServlet容器响应Web客户请求流程如下：
+
+    1）Web客户向Servlet容器发出Http请求；
+
+    2）Servlet容器解析Web客户的Http请求；
+
+    3）Servlet容器创建一个HttpRequest对象，在这个对象中封装Http请求信息；
+
+    4）Servlet容器创建一个HttpResponse对象；
+
+    5）Servlet容器调用HttpServlet的service方法，这个方法中会根据request的Method来判断具体是执行doGet还是doPost，把HttpRequest和HttpResponse对象作为service方法的参数传给HttpServlet对象；
+
+    6）HttpServlet调用HttpRequest的有关方法，获取HTTP请求信息；
+
+    7）HttpServlet调用HttpResponse的有关方法，生成响应数据；
+
+    8）Servlet容器把HttpServlet的响应结果传给Web客户。
+
+    doGet() 或 doPost() 是创建HttpServlet时需要覆盖的方法.
+>>>>>>> e1ed46e751251cfd818ad1abe159af04cc2c1095
+
+    \
