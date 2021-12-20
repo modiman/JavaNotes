@@ -29,7 +29,7 @@ public class EmployeeTest {
         //多态
         //正确写法 (超类可以引用子类)
         Employee employee = new Manager("modige",1000.0,new Date());
-        //错误写法（子类不能引用   超类）
+        //错误写法（子类不能引\用   超类）
         //Manager manager1 = new Employee("modige",1000.0,new Date());
         //这是因为如果manage1调用bonus会报错
         //这可以理解为所有的经理都是员工，但并非所有的员工都是经理
