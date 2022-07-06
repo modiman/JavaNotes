@@ -9,4 +9,5 @@
 * [12-泛型](12泛型.md)
 * [13-集合](13集合.md)
 * [14-多线程](14-多线程.md)
-* [Java核心技术阅读笔记](<README (1).md>)
+* [Java核心技术阅读笔记](java-he-xin-ji-shu-yue-du-bi-ji.md)
+* [15 常用技巧](15-chang-yong-ji-qiao.md)
